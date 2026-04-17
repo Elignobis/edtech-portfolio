@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <span class="logo">YourName | EdTech</span>
+    <span class="logo">Sibongile | EdTech</span>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
