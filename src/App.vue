@@ -21,6 +21,10 @@
     </nav>
     <RouterView />
   </div>
+  <!-- Back to top button -->
+<button class="back-to-top" :class="{ visible: showTop }" @click="scrollToTop">
+  ↑
+</button>
 </template>
 
 <script setup>
@@ -37,6 +41,21 @@ function toggleDark() {
 // Remember user's preference
 const saved = localStorage.getItem('darkMode')
 if (saved === 'true') isDark.value = true
+
+import {  onMounted, onUnmounted } from 'vue'
+
+const showTop = ref(false)
+
+function handleScroll() {
+  showTop.value = window.scrollY > 400
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+onMounted(() => window.addEventListener('scroll', handleScroll))
+onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 </script>
 
 <style>
@@ -184,5 +203,42 @@ body {
     border-bottom: 1px solid var(--border);
     font-size: 1rem;
   }
+}
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(37, 99, 235, 0.5);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px);
 }
 </style>
