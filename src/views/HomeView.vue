@@ -6,8 +6,8 @@
       <div class="hero-content">
         <div class="hero-text">
           <p class="hero-tag">👋 Welcome to my portfolio</p>
-          <h1>Hi, I'm <span class="accent">Ta Sbo</span></h1>
-          <p class="subtitle">EdTech Developer & Learning Experience Designer crafting digital tools that help learners thrive.</p>
+          <h1>Hi, I'm <span class="accent">Sibongile Rwayi</span></h1>
+          <p class="subtitle">Programme Manager | Education & Social Impact | Youth Development | EdTech Developer & Learning Experience Designer crafting digital tools that help learners thrive.</p>
           <div class="hero-btns">
             <a href="#projects" class="btn">View My Work</a>
             <a href="#contact" class="btn btn-outline">Contact Me</a>
@@ -151,7 +151,37 @@
     </div>
   </div>
 </section>
-
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="footer-logo">Sibongile Rwayi | EdTech</span>
+      <p>Building digital learning experiences that make a difference.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-social">
+      <h4>Connect</h4>
+      <a href="https://github.com/elignobis" target="_blank" class="social-link">
+        <span>🐙</span> GitHub
+      </a>
+      <a href="https://linkedin.com/in/elignobis" target="_blank" class="social-link">
+        <span>💼</span> LinkedIn
+      </a>
+      <a href="mailto:rwayisibongile@gmail.com" class="social-link">
+        <span>📧</span> Email
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Sibongile Rwayi | EdTech Sherpa. Created with Vue.js </p>
+  </div>
+</footer>
   </main>
 </template>
 
@@ -688,5 +718,93 @@ h2 {
 @keyframes fadeInRight {
   from { opacity: 0; transform: translateX(30px); }
   to { opacity: 1; transform: translateX(0); }
+}
+/* Footer */
+.footer {
+  background: #0f172a;
+  color: #94a3b8;
+  padding: 4rem 2rem 0;
+}
+
+.footer-content {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid #1e293b;
+}
+
+.footer-logo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.footer-brand p {
+  line-height: 1.7;
+  font-size: 0.9rem;
+  max-width: 280px;
+}
+
+.footer-links h4,
+.footer-social h4 {
+  color: white;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: #3b82f6; }
+
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+  padding: 0.4rem 0;
+}
+
+.social-link:hover { color: #3b82f6; }
+
+.footer-bottom {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+/* Mobile footer */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
 </style>
