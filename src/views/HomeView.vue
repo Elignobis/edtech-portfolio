@@ -28,22 +28,22 @@
 
     <!-- ABOUT -->
     <section id="about" class="section">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-tag">About</span>
         <h2>Who I Am</h2>
       </div>
       <div class="about-grid">
-        <div class="about-card">
+        <div class="about-card reveal reveal-delay-1">
           <span class="about-icon">🎯</span>
           <h3>My Mission</h3>
           <p>Building digital learning experiences that are engaging, accessible, and effective for every learner.</p>
         </div>
-        <div class="about-card">
+        <div class="about-card reveal reveal-delay-2">
           <span class="about-icon">🌍</span>
           <h3>My Background</h3>
           <p>I combine education expertise with modern web development to create tools that make a real difference.</p>
         </div>
-        <div class="about-card">
+        <div class="about-card reveal reveal-delay-3">
           <span class="about-icon">🚀</span>
           <h3>My Goal</h3>
           <p>To bridge the gap between technology and education, making quality learning accessible to all.</p>
@@ -53,12 +53,12 @@
 
     <!-- PROJECTS -->
     <section id="projects" class="section alt">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-tag">Work</span>
         <h2>Featured Projects</h2>
       </div>
       <div class="grid">
-        <div v-for="project in projects" :key="project.id" class="card">
+        <div v-for="project in projects" :key="project.id" class="card reveal" :class="`reveal-delay-${index + 1}`">
           <div class="card-accent"></div>
           <div class="card-body">
             <h3>{{ project.title }}</h3>
@@ -81,12 +81,12 @@
 
     <!-- SKILLS -->
     <section id="skills" class="section">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-tag">Skills</span>
         <h2>What I Do</h2>
       </div>
       <div class="skills-grid">
-        <div v-for="skill in skills" :key="skill.name" class="skill-card">
+        <div v-for="skill in skills" :key="skill.name" class="skill-card reveal" :class="`reveal-delay-${index + 1}`">
           <div class="skill-icon-wrap">
             <span class="skill-icon">{{ skill.icon }}</span>
           </div>
@@ -98,7 +98,7 @@
 
     <!-- CONTACT -->
 <section id="contact" class="section contact-section">
-  <div class="contact-box">
+  <div class="contact-box reveal">
     <span class="section-tag">Contact</span>
     <h2>Let's Work Together</h2>
     <p>Have a project in mind or want to collaborate? I'd love to hear from you!</p>
@@ -156,7 +156,12 @@
 </template>
 
 <script setup>
+useScrollReveal()
 import { ref } from 'vue'
+import { useScrollReveal } from '../composables/useScrollReveal.js'
+
+
+
 
 const projects = ref([
   {
@@ -215,7 +220,7 @@ async function submitForm() {
   formError.value = false
 
   try {
-    const response = await fetch('https://formspree.io/f/https://form.jotform.com/261068317167055', {
+    const response = await fetch('https://formspree.io/f/mnjldwnj', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form.value)
@@ -665,5 +670,23 @@ h2 {
 @media (max-width: 640px) {
   .form-row { grid-template-columns: 1fr; }
   .form-btn { width: 100%; text-align: center; }
+}
+/* Hero entrance */
+.hero-text {
+  animation: fadeInLeft 0.8s ease forwards;
+}
+
+.hero-image {
+  animation: fadeInRight 0.8s ease forwards;
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 </style>
