@@ -13,10 +13,10 @@
         </button>
       </div>
       <div class="nav-links" :class="{ open: menuOpen }">
-        <a href="#about" @click="menuOpen = false">About</a>
-        <a href="#projects" @click="menuOpen = false">Projects</a>
-        <a href="#skills" @click="menuOpen = false">Skills</a>
-        <a href="#contact" @click="menuOpen = false">Contact</a>
+        <button @click="scrollTo('about')">About</button>
+        <button @click="scrollTo('projects')">Projects</button>
+        <button @click="scrollTo('skills')">Skills</button>
+        <button @click="scrollTo('contact')">Contact</button>
       </div>
     </nav>
     <RouterView />
@@ -56,6 +56,13 @@ function scrollToTop() {
 
 onMounted(() => window.addEventListener('scroll', handleScroll))
 onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+function scrollTo(id) {
+  menuOpen.value = false
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 </script>
 
 <style>
@@ -241,4 +248,17 @@ body {
 .back-to-top:active {
   transform: translateY(-1px);
 }
+.nav-links button {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.nav-links button:hover { color: var(--primary); }
 </style>
