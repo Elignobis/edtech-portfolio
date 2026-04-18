@@ -97,14 +97,60 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section contact-section">
-      <div class="contact-box">
-        <span class="section-tag">Contact</span>
-        <h2>Let's Work Together</h2>
-        <p>Have a project in mind or want to collaborate? I'd love to hear from you!</p>
-        <a href="mailto:your@email.com" class="btn">Send Me an Email</a>
+<section id="contact" class="section contact-section">
+  <div class="contact-box">
+    <span class="section-tag">Contact</span>
+    <h2>Let's Work Together</h2>
+    <p>Have a project in mind or want to collaborate? I'd love to hear from you!</p>
+
+    <!-- Success message -->
+    <div v-if="formSent" class="form-success">
+      ✅ Message sent! I'll get back to you soon.
+    </div>
+
+    <!-- Error message -->
+    <div v-if="formError" class="form-error">
+      ❌ Something went wrong. Please try again.
+    </div>
+
+    <!-- Contact form -->
+    <div v-if="!formSent" class="contact-form">
+      <div class="form-row">
+        <input
+          v-model="form.name"
+          type="text"
+          placeholder="Your Name"
+          class="form-input"
+        />
+        <input
+          v-model="form.email"
+          type="email"
+          placeholder="Your Email"
+          class="form-input"
+        />
       </div>
-    </section>
+      <input
+        v-model="form.subject"
+        type="text"
+        placeholder="Subject"
+        class="form-input"
+      />
+      <textarea
+        v-model="form.message"
+        placeholder="Your message..."
+        class="form-input form-textarea"
+        rows="5"
+      ></textarea>
+      <button
+        class="btn form-btn"
+        @click="submitForm"
+        :disabled="submitting"
+      >
+        {{ submitting ? 'Sending...' : 'Send Message' }}
+      </button>
+    </div>
+  </div>
+</section>
 
   </main>
 </template>
@@ -147,6 +193,45 @@ const skills = ref([
   { icon: '📊', name: 'Analytics', description: 'Tracking learner outcomes' },
   { icon: '🤝', name: 'Collaboration', description: 'Educators & developers' },
 ])
+const form = ref({
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+})
+
+const formSent = ref(false)
+const formError = ref(false)
+const submitting = ref(false)
+
+async function submitForm() {
+  if (!form.value.name || !form.value.email || !form.value.message) {
+    formError.value = true
+    setTimeout(() => formError.value = false, 3000)
+    return
+  }
+
+  submitting.value = true
+  formError.value = false
+
+  try {
+    const response = await fetch('https://formspree.io/f/https://form.jotform.com/261068317167055', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form.value)
+    })
+
+    if (response.ok) {
+      formSent.value = true
+    } else {
+      formError.value = true
+    }
+  } catch {
+    formError.value = true
+  } finally {
+    submitting.value = false
+  }
+}
 </script>
 
 <style scoped>
@@ -506,5 +591,79 @@ h2 {
   .grid { grid-template-columns: 1fr; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
+}
+/* Contact form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 0.95rem;
+  font-family: 'Outfit', sans-serif;
+  transition: border 0.2s;
+  outline: none;
+}
+
+.form-input::placeholder { color: rgba(255,255,255,0.6); }
+.form-input:focus { border-color: rgba(255,255,255,0.8); }
+
+.form-textarea { resize: vertical; min-height: 120px; }
+
+.form-btn {
+  align-self: flex-start;
+  background: white;
+  color: #2563eb;
+  font-weight: 700;
+  padding: 0.85rem 2.5rem;
+  cursor: pointer;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+}
+
+.form-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-success {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.form-error {
+  background: rgba(239,68,68,0.2);
+  border: 1px solid rgba(239,68,68,0.4);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+  .form-btn { width: 100%; text-align: center; }
 }
 </style>
