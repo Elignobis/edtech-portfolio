@@ -1,10 +1,10 @@
 <template>
   <div :class="{ dark: isDark }">
     <nav class="navbar">
-      <span class="logo">Ta Sbo | EdTechie</span>
+      <span class="logo">Sibongile Rwayi</span>
       <div style="display: flex; align-items: center; gap: 1.5rem;">
         <button class="dark-toggle" @click="toggleDark" :title="isDark ? 'Light mode' : 'Dark mode'">
-          {{ isDark ? '☀️' : '🌙' }}
+          <i :class="isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"></i>
         </button>
         <button class="hamburger" @click="menuOpen = !menuOpen">
           <span></span>
